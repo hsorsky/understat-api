@@ -1,0 +1,88 @@
+[tool.poetry]
+name = "understat-api"
+version = "0.0.1"
+description = "understat.com API"
+authors = ["hsorsky <henrysorsky@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10.11,<4.0"
+pydantic = {extras = ["dotenv"], version = "<2.0"}
+requests = "^2.31.0"
+pyhumps = "^3.0.2"
+requests-cache = "^1.1.0"
+Django = ">=4.2"
+django-postgres-extra = "2.0.6"
+psycopg2-binary = "^2.8.6"
+beautifulsoup4 = "^4.12.2"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pytest = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+pytest-xdist = "*"
+mypy = "*"
+ipython = "*"
+isort = "*"
+pytest-vcr = "^1.0.2"
+factory-boy = "^3.2.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+branch = true
+data_file = ".coverage/.coverage"
+omit = [
+    'tests/*',
+    ".venv/*"
+]
+
+[tool.isort]
+force_single_line = true
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
+skip = ["venv", ".venv"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--durations=25 -vv"
+norecursedirs = ["media", "staticfiles", ".git", "venv", "data", ".github", ".circleci"]
+filterwarnings = ""
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    'if __name__ == "__main__":'
+]
+
+[tool.black]
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.circleci
+    | \.git
+    | \.github
+    | \.hg
+    | \.mypy_cache
+    | \.pytest_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | staticfiles
+    | media
+  )/
+)
+'''
